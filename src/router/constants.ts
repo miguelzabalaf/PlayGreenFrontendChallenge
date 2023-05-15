@@ -1,6 +1,6 @@
 export const routes = {
     dashboard: {
-        path: 'dashboard/*',
+        path: '/dashboard/*',
         children: {
             home: { path: 'home' },
             history: { path: 'history' },
