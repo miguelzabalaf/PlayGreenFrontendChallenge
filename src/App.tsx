@@ -6,8 +6,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import useStoreConfig from "./redux/controllers/useStoreConfig";
 
 function App() {
-    useInterceptor();
     const { store, persistor } = useStoreConfig();
+    useInterceptor();
     return (
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>

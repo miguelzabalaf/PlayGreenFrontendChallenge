@@ -1,6 +1,8 @@
 import { useEffect, useMemo } from "react";
 import useFirebaseAuth from "../../common/controllers/firebase/useFirebaseAuth";
 import { useNavigate } from "react-router-dom";
+import { themeSelectors } from "../../redux/selectors/theme";
+import { useSelector } from "react-redux";
 
 function useRouter() {
 
@@ -19,6 +21,10 @@ function useRouter() {
     // Hooks
     const navigate = useNavigate();
 
+    // Selectors
+    const { getThemeSelector } = themeSelectors();
+    const { theme } = useSelector(getThemeSelector());
+
     useEffect(() => {
         if (userIsSignedIn) {
             navigate(dashboardMainRoute);
@@ -28,7 +34,8 @@ function useRouter() {
     }, [userIsSignedIn, navigate]);
 
     return {
-        locationByAuth
+        locationByAuth,
+        theme
     };
 }
 

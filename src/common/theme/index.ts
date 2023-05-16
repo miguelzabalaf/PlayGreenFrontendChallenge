@@ -1,10 +1,10 @@
-interface ThemeConfig {
+export interface ThemeConfig {
     background: string;
     primary1: string;
     primary2: string;
     title: string;
     text: string;
-    textMutted: string;
+    textMuted: string;
     danger: string;
     white: string;
 }
@@ -21,7 +21,7 @@ const theme: Theme = {
         primary2: "#0D4ED3",
         title: "#161617",
         text: "#4D4C59",
-        textMutted: "#777777",
+        textMuted: "#777777",
         danger: "#EA596F",
         white: "#FFFFFF",
 
@@ -32,7 +32,7 @@ const theme: Theme = {
         primary2: "#0D4ED3",
         title: "#FEFEFE",
         text: "#D0D0D3",
-        textMutted: "#777777",
+        textMuted: "#777777",
         danger: "#EA596F",
         white: "#FFFFFF",
     }
