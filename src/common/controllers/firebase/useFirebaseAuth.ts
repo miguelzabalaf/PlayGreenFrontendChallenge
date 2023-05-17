@@ -1,7 +1,7 @@
 import { UserCredential, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { AuthParams } from './types';
 import { trackPromise } from 'react-promise-tracker';
-import { auth } from './useFirebase';
+import { auth } from './firebase';
 
 function useFirebaseAuth() {
 

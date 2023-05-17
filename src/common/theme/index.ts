@@ -1,4 +1,5 @@
 export interface ThemeConfig {
+    neutral: string;
     background: string;
     primary1: string;
     primary2: string;
@@ -16,6 +17,7 @@ interface Theme {
 
 const theme: Theme = {
     light: {
+        neutral: "#C3C3C3",
         background: "#E5E5E5",
         primary1: "#236BFE",
         primary2: "#0D4ED3",
@@ -27,6 +29,7 @@ const theme: Theme = {
 
     },
     dark: {
+        neutral: "#333333",
         background: "#181828",
         primary1: "#236BFE",
         primary2: "#0D4ED3",

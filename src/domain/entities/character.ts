@@ -13,12 +13,14 @@ export interface Images {
 }
 
 export interface Character {
-    mal_id: number;
-    url: string;
-    images: Images;
-    name: string;
-    name_kanji: string;
-    nicknames: any[];
-    favorites: number;
-    about: null;
+    data: {
+        mal_id: number;
+        url: string;
+        images: Images;
+        name: string;
+        name_kanji: string;
+        nicknames: any[];
+        favorites: number;
+        about: null;
+    };
 }

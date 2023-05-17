@@ -24,7 +24,6 @@ function useDashboardLayout() {
             icon: <Icon.Logout />,
             to: "/auth/login",
             onClick: async () => {
-                console.log("Hola");
                 await handleLogOut(() => navigate("/auth/login"));
             },
         },

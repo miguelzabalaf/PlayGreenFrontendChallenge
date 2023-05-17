@@ -49,6 +49,7 @@ function useLogin() {
         setLoading(true);
         try {
             await handleLogin(formData, () => navigate('/dashboard/home'));
+            setLoading(false);
         } catch (error) {
             setLoading(false);
             console.log('error', error);

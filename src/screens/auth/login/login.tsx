@@ -46,7 +46,7 @@ function Login(): JSX.Element {
                         disabled={!isValid || loading}
                         onClick={onSubmitLogin}
                     >
-                        {"Login"}
+                        {loading ? "..." : "Login"}
                     </ButtonText>
                 </StyledLoginButtonSection>
             </StyledLoginForm>
