@@ -29,7 +29,6 @@ function Login(): JSX.Element {
                     placeholder="miguel@hotmail.com"
                     register={register}
                     name={assignInputName("email")}
-                    autoComplete="off"
                     type={"email"}
                 />
                 <InputText
@@ -47,7 +46,7 @@ function Login(): JSX.Element {
                         disabled={!isValid || loading}
                         onClick={onSubmitLogin}
                     >
-                        {loading ? "..." : "Login"}
+                        {"Login"}
                     </ButtonText>
                 </StyledLoginButtonSection>
             </StyledLoginForm>

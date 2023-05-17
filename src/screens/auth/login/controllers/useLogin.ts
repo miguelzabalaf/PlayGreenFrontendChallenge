@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useFirebaseAuth from '../../../../common/controllers/firebase/useFirebaseAuth';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function useLogin() {
     const loginSchema = Yup.object().shape<FormLoginPropsSchemaKeys>({
@@ -27,6 +28,7 @@ function useLogin() {
 
     // Hooks
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     // Controllers
     const { handleLogin } = useFirebaseAuth();
@@ -46,8 +48,7 @@ function useLogin() {
     async function onSubmitLogin(formData: FormLoginProps) {
         setLoading(true);
         try {
-            await handleLogin(formData);
-            setLoading(false);
+            await handleLogin(formData, () => navigate('/dashboard/home'));
         } catch (error) {
             setLoading(false);
             console.log('error', error);

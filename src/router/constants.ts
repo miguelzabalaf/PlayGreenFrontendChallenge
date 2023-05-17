@@ -16,6 +16,7 @@ export const routes = {
         path: '/*',
         children: {
             notFound: { path: '/404' },
+            logout: { path: '/logout' },
         }
     }
 };

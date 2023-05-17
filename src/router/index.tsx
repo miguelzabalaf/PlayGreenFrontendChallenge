@@ -14,12 +14,10 @@ import { ThemeProvider } from "styled-components";
 import theme from "../common/theme";
 
 function Router(): JSX.Element {
-    const { locationByAuth, theme: themeSelected } = useRouter();
+    const { theme: mode } = useRouter();
     return (
-        <ThemeProvider
-            theme={{ ...theme[themeSelected], theme: themeSelected }}
-        >
-            <Routes location={locationByAuth}>
+        <ThemeProvider theme={{ ...theme[mode], mode }}>
+            <Routes>
                 <Route
                     path={routes.dashboard.path}
                     element={<DashboardRoutes />}
