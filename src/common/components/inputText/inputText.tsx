@@ -13,8 +13,8 @@ export interface InputTextProps
     label?: string;
     type?: "text" | "password" | "email" | undefined;
     placeholder?: string;
-    register?: UseFormRegister<any>;
-    name?: string;
+    register: UseFormRegister<any>;
+    name: string;
 }
 
 function InputText(props: InputTextProps): JSX.Element {
@@ -24,15 +24,13 @@ function InputText(props: InputTextProps): JSX.Element {
             {label && (
                 <StyledLabel htmlFor={`${name}-inputText`}>{label}</StyledLabel>
             )}
-            {register && name && (
-                <StyledInput
-                    {...props}
-                    {...register(name)}
-                    type={type}
-                    id={`${name}-inputText`}
-                    placeholder={placeholder}
-                />
-            )}
+            <StyledInput
+                {...register(name)}
+                type={type}
+                id={`${name}-inputText`}
+                placeholder={placeholder}
+                autoComplete="off"
+            />
         </StyledInputTextContainer>
     );
 }

@@ -7,8 +7,12 @@ export interface ButtonTextProps
     > {}
 
 function ButtonText(props: ButtonTextProps): JSX.Element {
-    const { children, onClick } = props;
-    return <StyledButton onClick={onClick}>{children}</StyledButton>;
+    const { children, onClick, disabled, type } = props;
+    return (
+        <StyledButton disabled={disabled} onClick={onClick} type={type}>
+            {children}
+        </StyledButton>
+    );
 }
 
 export default ButtonText;

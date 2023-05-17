@@ -13,4 +13,5 @@ export const StyledButton = styled.button<ButtonTextProps>`
     font-weight: 600;
     color: ${ (props => props.theme.white) };
     user-select: none;
+    opacity: ${ (props) => props.disabled ? 0.5 : 1 };
 `;

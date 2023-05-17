@@ -1,47 +1,30 @@
-import { UserCredential, getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { UserCredential, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import useFirebase from './useFirebase';
-import { useState } from 'react';
-import { AuthLoginParams } from './types';
+import { AuthParams } from './types';
+import { trackPromise } from 'react-promise-tracker';
 
 function useFirebaseAuth() {
-    // Sates
-    const [userIsSignedIn, onChangeuserIsSignedIn] = useState(false);
 
-    // Instances
-    const { app } = useFirebase();
-    const auth = getAuth(app);
+    // Controllers
+    const { auth } = useFirebase();
 
     // Methods
-    function handleLogin(params: AuthLoginParams): Promise<UserCredential> {
-        return signInWithEmailAndPassword(auth, params.email, params.password);
+    function handleLogin(params: AuthParams): Promise<UserCredential> {
+        return trackPromise(signInWithEmailAndPassword(auth, params.email, params.password));
+    }
+
+    function handleSignUp(params: AuthParams): Promise<UserCredential> {
+        return trackPromise(createUserWithEmailAndPassword(auth, params.email, params.password));
     }
 
     function handleLogOut(): Promise<void> {
-        return auth.signOut();
+        return trackPromise(auth.signOut());
     }
 
-    // Observers
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            onChangeuserIsSignedIn(true);
-        } else {
-            onChangeuserIsSignedIn(false);
-        }
-    });
-
-
     return {
-        states: {
-            userIsSignedIn,
-        },
-        instances: {
-            app,
-            auth
-        },
-        methods: {
-            handleLogin,
-            handleLogOut
-        }
+        handleLogin,
+        handleSignUp,
+        handleLogOut
     };
 
 }
