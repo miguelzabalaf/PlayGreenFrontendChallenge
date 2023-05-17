@@ -1,4 +1,6 @@
 import firebase, { initializeApp } from "firebase/app";
+import { getFirestore } from '@firebase/firestore/lite';
+import { getAuth } from "firebase/auth";
 
 function useFirebase() {
     const firebaseConfig = {
@@ -12,10 +14,14 @@ function useFirebase() {
     };
 
     const app = initializeApp(firebaseConfig as firebase.FirebaseOptions);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
 
     return {
         app,
+        db,
+        auth
     };
-};
+}
 
 export default useFirebase;

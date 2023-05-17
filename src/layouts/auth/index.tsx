@@ -1,13 +1,9 @@
 import { PropsWithChildren } from "react";
+import Page from "../../wrappers/page";
 
 function AuthLayout(props: PropsWithChildren): JSX.Element {
     const { children } = props;
-    return (
-        <div>
-            <h1>AuthLayout</h1>
-            {children}
-        </div>
-    );
+    return <Page>{children}</Page>;
 }
 
 export default AuthLayout;
