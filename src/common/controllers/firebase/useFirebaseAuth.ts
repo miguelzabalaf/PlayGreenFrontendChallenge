@@ -1,24 +1,36 @@
 import { UserCredential, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import useFirebase from './useFirebase';
 import { AuthParams } from './types';
 import { trackPromise } from 'react-promise-tracker';
+import { auth } from './useFirebase';
 
 function useFirebaseAuth() {
 
-    // Controllers
-    const { auth } = useFirebase();
-
     // Methods
-    function handleLogin(params: AuthParams): Promise<UserCredential> {
-        return trackPromise(signInWithEmailAndPassword(auth, params.email, params.password));
+    async function handleLogin(params: AuthParams, callback?: (user: UserCredential) => void) {
+        try {
+            const userCredential = await trackPromise(signInWithEmailAndPassword(auth, params.email, params.password));
+            callback && callback(userCredential);
+        } catch (error) {
+            console.log('error', error);
+        }
     }
 
-    function handleSignUp(params: AuthParams): Promise<UserCredential> {
-        return trackPromise(createUserWithEmailAndPassword(auth, params.email, params.password));
+    async function handleSignUp(params: AuthParams, callback?: (user: UserCredential) => void) {
+        try {
+            const userCredential = await trackPromise(createUserWithEmailAndPassword(auth, params.email, params.password));
+            callback && callback(userCredential);
+        } catch (error) {
+            console.log('error', error);
+        }
     }
 
-    function handleLogOut(): Promise<void> {
-        return trackPromise(auth.signOut());
+    async function handleLogOut(callback?: () => void): Promise<void> {
+        try {
+            await auth.signOut();
+            callback && callback();
+        } catch (error) {
+            console.log('error', error);
+        }
     }
 
     return {

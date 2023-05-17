@@ -5,7 +5,7 @@ export const StyledInputTextContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: ${ (props => props.theme.theme === 'light' ? props.theme.white : '#2F2F43') };
+    background-color: ${ (props => props.theme.mode === 'light' ? props.theme.white : '#2F2F43') };
     margin-bottom: 10px;
     border-radius: 18px;
     padding: 10px 12px;
@@ -22,6 +22,6 @@ export const StyledInput = styled.input`
     border: none;
     outline: none;
     font-size: 16px;
-    background-color: ${ (props => props.theme.theme === 'light' ? props.theme.white : '#2F2F43') };
+    background-color: ${ (props => props.theme.mode === 'light' ? props.theme.white : '#2F2F43') };
     color: ${ (props => props.theme.text) };
 `;

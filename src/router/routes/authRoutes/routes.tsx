@@ -25,4 +25,9 @@ export const authRoutes: Route[] = [
         path: "*",
         element: <Redirect to={routes.common.children.notFound.path} />,
     },
+    {
+        key: "2",
+        path: routes.common.children.logout.path,
+        element: <Redirect to={routes.common.children.logout.path} />,
+    },
 ];
