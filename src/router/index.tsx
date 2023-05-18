@@ -12,12 +12,19 @@ import PageNotFound from "./screens/pageNotFound/pageNotFound";
 import useRouter from "./controllers/useRouter";
 import { ThemeProvider } from "styled-components";
 import theme from "../common/theme";
+import Redirect from "./components/redirect";
 
 function Router(): JSX.Element {
     const { theme: mode } = useRouter();
     return (
         <ThemeProvider theme={{ ...theme[mode], mode }}>
             <Routes>
+                <Route
+                    path={"/"}
+                    element={
+                        <Redirect to={routes.auth.children.login.fullPath} />
+                    }
+                />
                 <Route
                     path={routes.dashboard.path}
                     element={<DashboardRoutes />}

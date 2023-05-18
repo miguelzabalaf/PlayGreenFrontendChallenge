@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { themeSelectors } from "../../redux/selectors/theme";
 import { useSelector } from "react-redux";
-import { auth } from "../../common/controllers/firebase/firebase";
+import { auth } from '../../common/controllers/firebase/firebase';
 import { onAuthStateChanged } from "firebase/auth";
 
 function useRouter() {
