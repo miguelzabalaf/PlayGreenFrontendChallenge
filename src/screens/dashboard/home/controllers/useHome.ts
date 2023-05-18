@@ -3,7 +3,7 @@ import { characterRepositoryImplement } from "../../../../api/repositoryImplemen
 import { characterUseCases } from "../../../../domain/useCases/character";
 import { Character } from "../../../../domain/entities/character";
 import useFirebaseInteractions from "../../../../common/controllers/firebase/useFirebaseInteractions";
-import { Interaction } from "../../../../common/controllers/firebase/types";
+import { Interactions } from "../../../../common/controllers/firebase/types";
 
 function useHome() {
     const { handleInteractionCharacter } = useFirebaseInteractions();
@@ -25,14 +25,14 @@ function useHome() {
     const handleLoveCharacter = useCallback(() => {
         if (character) {
             setHasInteraction(true);
-            handleInteractionCharacter(character, Interaction.LOVE, onGetRandomCharacter);
+            handleInteractionCharacter(character, Interactions.LOVE, onGetRandomCharacter);
         }
     }, [character, handleInteractionCharacter, onGetRandomCharacter]);
 
     const handleHateCharacter = useCallback(() => {
         if (character) {
             setHasInteraction(true);
-            handleInteractionCharacter(character, Interaction.HATE, onGetRandomCharacter);
+            handleInteractionCharacter(character, Interactions.HATE, onGetRandomCharacter);
         }
     }, [character, handleInteractionCharacter, onGetRandomCharacter]);
 

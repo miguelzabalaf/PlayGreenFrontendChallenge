@@ -3,7 +3,7 @@ export interface AuthParams {
     password: string;
 }
 
-export enum Interaction {
+export enum Interactions {
     LOVE = 'love',
     HATE = 'hate'
 }

@@ -2,7 +2,8 @@ import { collection, doc, getDocs, getFirestore, query, setDoc } from "firebase/
 import { app, auth } from "./firebase";
 import { firebaseCollections } from "../../constants/firebase";
 import { Character } from "../../../domain/entities/character";
-import { Interaction } from './types';
+import { Interactions } from './types';
+import { Interaction } from "../../../domain/models/interaction";
 
 
 function useFirebaseInteractions() {
@@ -11,7 +12,7 @@ function useFirebaseInteractions() {
     const currentUser = auth.currentUser?.uid;
 
     // Methods
-    async function handleInteractionCharacter(character: Character, interaction: Interaction, callback?: () => void) {
+    async function handleInteractionCharacter(character: Character, interaction: Interactions, callback?: () => void) {
         const id = `${ currentUser }-${ character.data.mal_id }`;
         try {
             await setDoc(doc(interactionsRef, id), {
@@ -24,12 +25,12 @@ function useFirebaseInteractions() {
         }
     }
 
-    async function getAllInteractions(): Promise<Array<Character>> {
+    async function getAllInteractions(): Promise<Array<Interaction>> {
         try {
             const q = query(collection(db, firebaseCollections.INTERACTIONS));
             const querySnapshot = await getDocs(q);
             const interactions = querySnapshot.docs.map(doc => doc.data());
-            return interactions as Character[];
+            return interactions as Interaction[];
         } catch (error) {
             return [];
         }

@@ -15,7 +15,7 @@ interface Theme {
     dark: ThemeConfig;
 }
 
-const theme: Theme = {
+export const theme: Theme = {
     light: {
         neutral: "#C3C3C3",
         background: "#E5E5E5",
