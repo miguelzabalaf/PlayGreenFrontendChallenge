@@ -1,34 +1,33 @@
-import { useEffect, useMemo } from "react";
-import useFirebaseAuth from "../../common/controllers/firebase/useFirebaseAuth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { themeSelectors } from "../../redux/selectors/theme";
+import { useSelector } from "react-redux";
+import { auth } from "../../common/controllers/firebase/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 function useRouter() {
 
     // constants
     const dashboardMainRoute = '/dashboard/home';
-    const authMainRoute = '/auth/login';
-
-    // Controllers
-    const { states } = useFirebaseAuth();
-    const { userIsSignedIn } = states;
-
-    const locationByAuth = useMemo(() => {
-        return userIsSignedIn ? dashboardMainRoute : authMainRoute;
-    }, [userIsSignedIn]);
 
     // Hooks
     const navigate = useNavigate();
+    const { pathname } = useLocation();
 
-    useEffect(() => {
-        if (userIsSignedIn) {
-            navigate(dashboardMainRoute);
-        } else {
-            navigate(authMainRoute);
+    // Selectors
+    const { getThemeSelector } = themeSelectors();
+    const { theme } = useSelector(getThemeSelector());
+
+    onAuthStateChanged(auth, (user) => {
+        if (user !== null) {
+            if (!pathname.includes('dashboard')) {
+                navigate(dashboardMainRoute);
+            } return;
         }
-    }, [userIsSignedIn, navigate]);
+    });
+
 
     return {
-        locationByAuth
+        theme,
     };
 }
 

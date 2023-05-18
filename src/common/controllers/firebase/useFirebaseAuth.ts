@@ -1,47 +1,42 @@
-import { UserCredential, getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import useFirebase from './useFirebase';
-import { useState } from 'react';
-import { AuthLoginParams } from './types';
+import { UserCredential, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { AuthParams } from './types';
+import { trackPromise } from 'react-promise-tracker';
+import { auth } from './firebase';
 
 function useFirebaseAuth() {
-    // Sates
-    const [userIsSignedIn, onChangeuserIsSignedIn] = useState(false);
-
-    // Instances
-    const { app } = useFirebase();
-    const auth = getAuth(app);
 
     // Methods
-    function handleLogin(params: AuthLoginParams): Promise<UserCredential> {
-        return signInWithEmailAndPassword(auth, params.email, params.password);
-    }
-
-    function handleLogOut(): Promise<void> {
-        return auth.signOut();
-    }
-
-    // Observers
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            onChangeuserIsSignedIn(true);
-        } else {
-            onChangeuserIsSignedIn(false);
+    async function handleLogin(params: AuthParams, callback?: (user: UserCredential) => void) {
+        try {
+            const userCredential = await trackPromise(signInWithEmailAndPassword(auth, params.email, params.password));
+            callback && callback(userCredential);
+        } catch (error) {
+            console.log('error', error);
         }
-    });
+    }
 
+    async function handleSignUp(params: AuthParams, callback?: (user: UserCredential) => void) {
+        try {
+            const userCredential = await trackPromise(createUserWithEmailAndPassword(auth, params.email, params.password));
+            callback && callback(userCredential);
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+
+    async function handleLogOut(callback?: () => void): Promise<void> {
+        try {
+            await auth.signOut();
+            callback && callback();
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
 
     return {
-        states: {
-            userIsSignedIn,
-        },
-        instances: {
-            app,
-            auth
-        },
-        methods: {
-            handleLogin,
-            handleLogOut
-        }
+        handleLogin,
+        handleSignUp,
+        handleLogOut
     };
 
 }

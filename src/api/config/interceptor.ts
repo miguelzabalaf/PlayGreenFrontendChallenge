@@ -24,11 +24,10 @@ function useInterceptor() {
     }
 
     const handleResponseError = (error: AxiosError) => {
-        alert(error?.message);
         throw error;
     };
     useEffect(() => {
-        axios.defaults.baseURL = `${ process.env.REACT_APP_API_URL }/v${ process.env.REACT_APP_API_URL_VERSION }`;
+        axios.defaults.baseURL = process.env.REACT_APP_API_URL;
         axios.interceptors.request.use(handleRequestSuccess, handleRequestError);
         axios.interceptors.response.use(handleResponseSuccess, handleResponseError);
     }, []);

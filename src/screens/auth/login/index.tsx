@@ -1,5 +1,5 @@
 import React from "react";
-import Loading from "../../../components/loading";
+import Loading from "../../../common/components/loading";
 
 // Lazy Screen
 const Login = React.lazy(() => import("./login"));
